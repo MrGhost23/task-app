@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "@/store/slices/userAuthSlice";
+import userImage from "../assets/user.png";
 
 const Navbar: React.FC = () => {
+  const user = useSelector(selectUser);
+
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -12,18 +17,20 @@ const Navbar: React.FC = () => {
           <img
             src="https://anytimesoftware.com/images/logo.svg"
             className="h-12"
-            alt="Flowbite Logo"
+            alt="Logo"
           />
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <button
             type="button"
-            className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            className="flex text-sm  rounded-full md:me-0 focus:ring-4  dark:focus:ring-gray-600"
           >
             <img
               className="w-8 h-8 rounded-full"
-              src="https://i.pinimg.com/236x/d9/21/4a/d9214ad661353dffe8846da342e1a004.jpg"
-              alt="user photo"
+              src={user?.image || userImage}
+              alt={
+                user ? `${user?.username} profile picture` : "profile picture"
+              }
             />
           </button>
           <div
@@ -90,9 +97,9 @@ const Navbar: React.FC = () => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M1 1h15M1 7h15M1 13h15"
               />
             </svg>

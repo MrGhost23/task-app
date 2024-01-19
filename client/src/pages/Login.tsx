@@ -14,6 +14,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useDispatch } from "react-redux";
+import { login } from "@/store/slices/userAuthSlice";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -29,8 +31,15 @@ const Login: React.FC = () => {
     },
   });
 
+  const dispatch = useDispatch();
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    dispatch(
+      login({
+        username: values.username,
+        password: values.password,
+      })
+    );
   }
   return (
     <div className="w-full flex justify-center items-center h-screen">

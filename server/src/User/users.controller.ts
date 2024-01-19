@@ -88,7 +88,12 @@ export class UserController {
       image: userImageSrc,
       fullName: firstTwoNames,
     });
-    const payload = { username: user.username, sub: user.id };
+    const payload = {
+      username: user.username,
+      userId: user.id,
+      image: user.image,
+      fullName: user.fullName,
+    };
     return {
       userId: user.id,
       username: user.username,
@@ -106,7 +111,12 @@ export class UserController {
       throw new BadRequestException('Invalid credentials');
     }
 
-    const payload = { username: user.username, sub: user.id };
+    const payload = {
+      username: user.username,
+      userId: user.id,
+      image: user.image,
+      fullName: user.fullName,
+    };
     const userData = await this.usersService.getUserData(user.id);
 
     const userResponse = {
