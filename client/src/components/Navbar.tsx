@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "@/store/slices/userAuthSlice";
 import userImage from "../assets/user.png";
+import logo from "../assets/logo.svg";
 import { Button } from "./ui/button";
 
 const Navbar: React.FC = () => {
@@ -15,11 +16,7 @@ const Navbar: React.FC = () => {
           to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <img
-            src="https://anytimesoftware.com/images/logo.svg"
-            className="h-12"
-            alt="Logo"
-          />
+          <img src={logo} className="h-12" alt="Logo" />
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           {user ? (
