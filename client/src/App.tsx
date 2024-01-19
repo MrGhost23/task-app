@@ -34,7 +34,13 @@ const App: React.FC = () => {
             token: localToken,
           }
         );
-        dispatch(setUser(response.data.userData));
+        if (response.data.error) {
+          setIsLoading(false);
+          return;
+        }
+        if (response.data.isValid) {
+          dispatch(setUser(response.data.payload));
+        }
       } catch (error) {
         console.error(error);
       }
