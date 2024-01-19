@@ -75,8 +75,6 @@ export class UserController {
     console.log(userImageSrc);
     console.log(firstTwoNames);
 
-    await driver.quit();
-
     if (!firstTwoNames) {
       throw new BadRequestException('Could not determine username');
     }
