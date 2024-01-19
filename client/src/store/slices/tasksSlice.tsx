@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Key } from "react";
 
 interface Task {
+  taskId: Key | null | undefined;
   title: string;
   description: string;
   dueDate: string;
