@@ -1,40 +1,42 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { ApiError, ApiResponse, TaskType } from "@/Types/TaskTypes";
 import Loading from "@/components/ui/loading";
 import Task from "@/components/Tasks/Task";
 import TaskForm from "@/components/Tasks/TaskForm";
+import { useMediaQuery } from "react-responsive";
+import { Button } from "@/components/ui/button";
+import { IoMdAdd, IoMdClose } from "react-icons/io";
+import { IoIosSearch } from "react-icons/io";
+import Modal from "react-modal";
+import { useAppDispatch, useAppSelector } from "@/utils/hooks";
+import { fetchTasks } from "@/store/slices/tasksSlice";
 
 const Tasks = () => {
-  const localToken = localStorage.getItem("token");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const dispatch = useAppDispatch();
 
-  const [tasks, setTasks] = useState<TaskType[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<ApiError | null>(null);
+  const { tasks, loading, error } = useAppSelector((state) => state.tasks);
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response: ApiResponse = await axios.get(
-          "http://localhost:5000/tasks/",
-          {
-            headers: {
-              Authorization: `Bearer ${localToken}`,
-            },
-          }
-        );
-        if (response.error) {
-          return;
-        }
-        setTasks(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error as ApiError);
-        setLoading(false);
-      }
-    };
-    fetchTasks();
-  }, [localToken]);
+    dispatch(fetchTasks());
+  }, [dispatch]);
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-device-width: 1224px)",
+  });
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    console.log("closeModal is being called");
+    setIsModalOpen(false);
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
 
   const handleEdit = (taskId: string) => {
     // Handle edit functionality
@@ -50,7 +52,35 @@ const Tasks = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3">
-      <TaskForm />
+      {isDesktopOrLaptop && (
+        <div className="hidden lg:block">
+          <TaskForm />
+        </div>
+      )}
+      {!isDesktopOrLaptop && (
+        <div className="flex justify-center items-center">
+          <Button className="bg-sky-500 w-full mx-12 my-8" onClick={openModal}>
+            <IoMdAdd className="text-xl" />
+            <h2>Create Task</h2>
+            <Modal
+              isOpen={isModalOpen}
+              onRequestClose={() => setIsModalOpen(false)}
+              shouldCloseOnOverlayClick={true}
+              shouldCloseOnEsc={true}
+              shouldFocusAfterRender={true}
+              shouldReturnFocusAfterClose={true}
+              ariaHideApp={false}
+              contentLabel="Task Modal"
+            >
+              <button onClick={closeModal} className="absolute right-4">
+                <IoMdClose className="text-2xl" />
+              </button>
+              <TaskForm />
+            </Modal>
+          </Button>
+        </div>
+      )}
+
       <div className="px-8 col-span-2">
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold">Tasks</h1>
@@ -66,30 +96,19 @@ const Tasks = () => {
           <input
             type="text"
             placeholder="Search for tasks"
+            value={searchQuery}
+            onChange={handleSearchChange}
             className="border-b border-gray-300 rounded-md p-2 outline-none focus:border-sky-500 flex-grow mr-4"
           />
-          <button className="bg-sky-500 text-white rounded-md p-2 flex items-center">
-            <svg
-              className="h-5 w-5 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-            New Task
+          <button className="bg-sky-500 text-white text-md gap-1 rounded-md font-medium p-2 flex items-center">
+            <IoIosSearch />
+            Search
           </button>
         </div>
         {error && error.message && (
           <p className="text-red-500">{error.message}</p>
         )}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 pb-8">
           {loading ? (
             <>
               <Loading />
@@ -97,7 +116,7 @@ const Tasks = () => {
             </>
           ) : (
             tasks.map((task) => {
-              return <Task key={task._id} task={task} />;
+              return <Task key={task.taskId} task={task} />;
             })
           )}
         </div>

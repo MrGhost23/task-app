@@ -12,7 +12,7 @@ const Task: React.FC<Props> = ({ task }) => {
   const remainingDays = calculateDaysDifference(today, task.dueDate);
   return (
     <div
-      key={task._id}
+      key={task.taskId}
       className="group relative h-full bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transform hover:scale-105 transition duration-200 ease-in-out p-4"
     >
       <h2 className="text-xl font-bold">{task.title}</h2>

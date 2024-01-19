@@ -1,11 +1,11 @@
 export interface TaskType {
-    _id: string;
+    taskId: string;
     title: string;
     description: string;
     dueDate: string;
-    isCompleted: boolean;
+    isCompleted?: boolean;
     category: string;
-    createdBy: string; 
+    createdBy?: string; 
 }
 
 export interface ApiResponse {
