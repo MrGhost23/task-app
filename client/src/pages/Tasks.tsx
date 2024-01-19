@@ -105,9 +105,7 @@ const Tasks = () => {
             Search
           </button>
         </div>
-        {error && error.message && (
-          <p className="text-red-500">{error.message}</p>
-        )}
+        {error && <p className="text-red-500">{error}</p>}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 pb-8">
           {loading ? (
             <>
