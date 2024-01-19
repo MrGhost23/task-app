@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useDispatch } from "react-redux";
+import { Action, ThunkDispatch } from "@reduxjs/toolkit";
+import { RootState } from "../store/store";
 import { login } from "@/store/slices/userAuthSlice";
 
 const formSchema = z.object({
@@ -31,7 +33,7 @@ const Login: React.FC = () => {
     },
   });
 
-  const dispatch = useDispatch();
+  const dispatch: ThunkDispatch<RootState, void, Action> = useDispatch();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     dispatch(

@@ -40,7 +40,8 @@ export class TasksController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async getAllTasks(@Req() req) {
-    const tasks = await this.tasksService.getAllTasksByUser(req.user.userId);
-    return tasks.map((task) => this.mapTaskResponse(task, req.user.userId));
+    console.log(req.user);
+    const tasks = await this.tasksService.getAllTasksByUser(req.user._id);
+    return tasks.map((task) => this.mapTaskResponse(task, req.user._id));
   }
 }

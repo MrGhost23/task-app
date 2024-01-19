@@ -15,7 +15,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useDispatch } from "react-redux";
-import { login, register } from "@/store/slices/userAuthSlice";
+import { register } from "@/store/slices/userAuthSlice";
+import { Action, ThunkDispatch } from "@reduxjs/toolkit";
+import { RootState } from "@/store/store";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -36,7 +38,7 @@ const Signup: React.FC = () => {
     password: string;
   }
 
-  const dispatch = useDispatch();
+  const dispatch: ThunkDispatch<RootState, void, Action> = useDispatch();
 
   function onSubmit(values: RegisterPayload) {
     dispatch(

@@ -5,7 +5,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import TaskDetail from "./pages/TaskDetail";
@@ -13,6 +12,7 @@ import Navbar from "./components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, setUser } from "./store/slices/userAuthSlice";
 import axios from "axios";
+import Tasks from "./pages/Tasks";
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,7 +55,7 @@ const App: React.FC = () => {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={user ? <Tasks /> : <Login />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route
           path="/signup"

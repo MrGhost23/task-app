@@ -18,7 +18,7 @@ const initialState = {
 
 export const register = createAsyncThunk(
   "auth/register",
-  async (registrationData) => {
+  async (registrationData: { username: string; password: string }) => {
     try {
       const response = await axios.post(
         "http://localhost:5000/users/signup",
