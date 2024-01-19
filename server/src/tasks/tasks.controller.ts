@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../JWT/jwt-auth.guard';
 import { TasksService } from './tasks.service';
 
@@ -43,5 +53,35 @@ export class TasksController {
     console.log(req.user);
     const tasks = await this.tasksService.getAllTasksByUser(req.user._id);
     return tasks.map((task) => this.mapTaskResponse(task, req.user._id));
+  }
+
+  @Patch(':id')
+  async updateTask(
+    @Param('id') taskId: string,
+    @Body('title') title: string,
+    @Body('description') description: string,
+    @Body('dueDate') dueDate: Date,
+    @Body('category') category: string,
+  ) {
+    return this.tasksService.updateTask(
+      taskId,
+      title,
+      description,
+      dueDate,
+      category,
+    );
+  }
+
+  @Delete(':id')
+  async deleteTask(@Param('id') taskId: string) {
+    return this.tasksService.deleteTask(taskId);
+  }
+
+  @Patch(':id/completed')
+  async updateIsCompleted(
+    @Param('id') taskId: string,
+    @Body('isCompleted') isCompleted: boolean,
+  ) {
+    return this.tasksService.updateIsCompleted(taskId, isCompleted);
   }
 }
