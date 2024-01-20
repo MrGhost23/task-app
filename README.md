@@ -69,7 +69,7 @@ Make sure you have the following installed on your machine:
 
 ```bash
 git clone https://github.com/MrGhost23/task-app.git
-cd task-management-app
+cd task-app
 npm install
 # or
 yarn install
