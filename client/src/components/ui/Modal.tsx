@@ -1,4 +1,4 @@
-import useScrollBlock from "@/hooks/useScreollBlock";
+import useScrollBlock from "@/hooks/useScrollBlock";
 import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { IoMdClose } from "react-icons/io";
