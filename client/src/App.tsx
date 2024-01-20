@@ -7,12 +7,11 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import TaskDetail from "./pages/TaskDetail";
 import Navbar from "./components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, setUser } from "./store/slices/userAuthSlice";
 import axios from "axios";
-import Tasks from "./pages/Tasks";
+import TasksPage from "./pages/TasksPage";
 import Profile from "./pages/Profile";
 
 const App: React.FC = () => {
@@ -56,14 +55,13 @@ const App: React.FC = () => {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={user ? <Tasks /> : <Login />} />
+        <Route path="/" element={user ? <TasksPage /> : <Login />} />
         <Route path="/profile" element={user ? <Profile /> : <Login />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route
           path="/signup"
           element={user ? <Navigate to="/" /> : <Signup />}
         />
-        <Route path="/tasks/:id" element={<TaskDetail />} />
       </Routes>
     </Router>
   );
