@@ -66,6 +66,14 @@ export class UserController {
       ),
     );
 
+    const userBody = await driver.findElement(
+      By.xpath(
+        "//div[contains(@class, 'text-body-medium') and contains(@class, 'break-words')]",
+      ),
+    );
+
+    const userBio = await userBody.getText();
+
     const userImageSrc = await userImg.getAttribute('src');
     const fullName = await driver.getTitle();
 
@@ -85,6 +93,7 @@ export class UserController {
       password: hashedPassword,
       image: userImageSrc,
       fullName: firstTwoNames,
+      ...(userBio && { bio: userBio }),
     });
     const payload = {
       username: user.username,
