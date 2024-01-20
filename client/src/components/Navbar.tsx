@@ -1,12 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectUser } from "@/store/slices/userAuthSlice";
+import { logout, selectUser } from "@/store/slices/userAuthSlice";
 import logo from "../assets/tasks.png";
 import { Button } from "./ui/button";
+import { Menu } from "@headlessui/react";
+import { useAppDispatch } from "@/utils/hooks";
 
 const Navbar: React.FC = () => {
   const user = useSelector(selectUser);
+  const dispatch = useAppDispatch();
 
   return (
     <nav className="bg-white px-4 border-gray-200 dark:bg-gray-900">
@@ -24,11 +27,41 @@ const Navbar: React.FC = () => {
               <span className="hidden lg:block mr-4 font-medium">
                 Hello, {user.fullName}
               </span>
-              <img
-                className="w-12 h-12 rounded-full"
-                src={user.image}
-                alt={`${user.username} profile picture`}
-              />
+              <Menu>
+                <Menu.Button>
+                  <img
+                    className="w-12 h-12 rounded-full cursor-pointer"
+                    src={user.image}
+                    alt={`${user.username} profile picture`}
+                  />
+                </Menu.Button>
+                <Menu.Items className="absolute top-14 right-8 w-40 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to="/profile"
+                        className={`${
+                          active ? "bg-sky-500 text-white" : "text-gray-900"
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                      >
+                        Profile
+                      </Link>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        onClick={() => dispatch(logout())}
+                        className={`${
+                          active ? "bg-sky-500 text-white" : "text-gray-900"
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                      >
+                        Logout
+                      </button>
+                    )}
+                  </Menu.Item>
+                </Menu.Items>
+              </Menu>
             </>
           ) : (
             <div className="space-x-2">
