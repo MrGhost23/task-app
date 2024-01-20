@@ -101,3 +101,30 @@ yarn run dev
 3. Open your browser and navigate to http://localhost:3000.
 
 # Folder Structure
+
+The main folders in this project are:
+
+- `/client`: This folder contains the React frontend code.
+- `/server`: This folder contains the Nest.js backend code.
+
+# Technologies Used
+
+This project uses the following technologies:
+
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Nest.js](https://nestjs.com/)
+- [Selenium Webdriver](https://www.selenium.dev/)
+- [MongoDB](https://www.mongodb.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [JWT](https://jwt.io/)
+- [Mongoose](https://mongoosejs.com/)
+- [Bcrypt](https://www.npmjs.com/package/bcrypt)
+- [React Router DOM](https://reactrouter.com/)
+- [Zod](https://www.npmjs.com/package/zod)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [Tailwind Animate](https://www.npmjs.com/package/tailwindcss-animatecss)
+- [Tailwind Merge](https://www.npmjs.com/package/tailwindcss-merge)
+- [Shadcn](https://www.npmjs.com/package/shadcn)
