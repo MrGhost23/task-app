@@ -68,7 +68,7 @@ Make sure you have the following installed on your machine:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/task-management-app.git
+git clone https://github.com/MrGhost23/task-app.git
 cd task-management-app
 npm install
 # or
