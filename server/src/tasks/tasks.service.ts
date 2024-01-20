@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, UpdateWriteOpResult } from 'mongoose';
+import { FilterQuery, Model, UpdateWriteOpResult } from 'mongoose';
 import { User } from 'src/Schemas/User.schema';
+import { TaskDocument } from './task.model';
 
 @Injectable()
 export class TasksService {
@@ -68,5 +69,13 @@ export class TasksService {
       },
     );
     return updatedTask;
+  }
+
+  async filterTasks(
+    filter: FilterQuery<TaskDocument>,
+    userId: string,
+  ): Promise<TaskDocument[]> {
+    const tasks = await this.taskModel.find({ ...filter, createdBy: userId });
+    return tasks;
   }
 }

@@ -51,7 +51,7 @@ export class TasksController {
   @Get()
   async getAllTasks(@Req() req) {
     console.log(req.user);
-    const tasks = await this.tasksService.getAllTasksByUser(req.user._id);
+    const tasks = await this.tasksService.filterTasks(req.query, req.user._id);
     return tasks.map((task) => this.mapTaskResponse(task, req.user._id));
   }
 
