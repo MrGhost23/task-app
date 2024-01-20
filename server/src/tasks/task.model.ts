@@ -24,6 +24,9 @@ export class Task extends Document {
   @Prop()
   category: string;
 
+  @Prop({ default: Date.now })
+  createdAt: Date;
+
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   createdBy: User;
   _id: any;
