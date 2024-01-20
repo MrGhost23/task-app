@@ -105,6 +105,7 @@ export class UserController {
       userId: user.id,
       username: user.username,
       image: user.image,
+      bio: user.bio,
       fullName: user.fullName,
       access_token: this.jwtService.sign(payload),
     };
@@ -130,6 +131,7 @@ export class UserController {
       userId: userData._id,
       username: userData.username,
       image: userData.image,
+      bio: userData.bio,
       fullName: userData.fullName,
     };
 
