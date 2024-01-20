@@ -5,6 +5,7 @@ import userimage from "../assets/user.png";
 
 const Profile = () => {
   const user = useSelector(selectUser);
+  console.log(user);
   const handleImageError = (event) => {
     event.target.src = userimage;
   };

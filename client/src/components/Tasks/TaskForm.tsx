@@ -2,7 +2,7 @@ import { useAppDispatch } from "@/utils/hooks";
 import { useTasks } from "@/utils/useTasks";
 import axios from "axios";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { createTask, fetchTasks } from "../../store/slices/tasksSlice";
+import { createTask } from "../../store/slices/tasksSlice";
 
 interface Task {
   title: string;
@@ -19,22 +19,24 @@ const TaskForm = () => {
     category: "",
   };
   const [task, setTask] = useState<Task>(initialTaskState);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { fetchTasks } = useTasks();
   const dispatch = useAppDispatch();
 
   const TaskCreator = async (task: Task) => {
     try {
-      const response = await axios.post("http://localhost:5000/tasks/", task);
       await dispatch(createTask(task));
       setTask(initialTaskState);
-      return response.data;
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
   useEffect(() => {
-    dispatch(fetchTasks({}));
-  }, [dispatch]);
+    fetchTasks();
+  }, [fetchTasks]);
 
   const handleChange = (
     event: ChangeEvent<
@@ -47,12 +49,12 @@ const TaskForm = () => {
     });
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    console.log("Creating task:", task);
-    TaskCreator(task)
-      .then((data) => console.log(data))
-      .catch((error) => console.error("Error:", error));
+    setIsLoading(true);
+    if (task.title && task.description && task.dueDate && task.category) {
+      TaskCreator(task);
+    }
   };
 
   return (
@@ -119,6 +121,7 @@ const TaskForm = () => {
         </div>
         <button
           type="submit"
+          disabled={isLoading}
           className="bg-sky-500 text-white rounded-md p-2 w-full"
         >
           Create
