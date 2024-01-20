@@ -1,5 +1,7 @@
+import { Key } from "react";
+
 export interface TaskType {
-    taskId: string;
+    taskId: string | Key | null | undefined;
     title: string;
     description: string;
     dueDate: string;
