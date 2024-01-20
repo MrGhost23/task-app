@@ -16,7 +16,7 @@ const Task: React.FC<Props> = ({ task }) => {
       className="group relative h-full bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transform hover:scale-105 transition duration-200 ease-in-out p-4"
     >
       <h2 className="text-xl font-bold">{task.title}</h2>
-      <p className="text-sm text-gray-500">{task.category}</p>
+      <p className="text-sm text-gray-500 capitalize">{task.category}</p>
       <p className="mt-2 text-gray-700">{task.description}</p>
       <div className="mt-4 flex justify-between items-center">
         <span>
