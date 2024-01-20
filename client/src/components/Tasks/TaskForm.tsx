@@ -2,7 +2,7 @@ import { useAppDispatch } from "@/utils/hooks";
 import { useTasks } from "@/utils/useTasks";
 import axios from "axios";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { createTask } from "../../store/slices/tasksSlice";
+import { createTask, fetchTasks } from "../../store/slices/tasksSlice";
 
 interface Task {
   title: string;
@@ -19,8 +19,6 @@ const TaskForm = () => {
     category: "",
   };
   const [task, setTask] = useState<Task>(initialTaskState);
-  const { fetchTasks } = useTasks();
-
   const dispatch = useAppDispatch();
 
   const TaskCreator = async (task: Task) => {
@@ -35,8 +33,8 @@ const TaskForm = () => {
   };
 
   useEffect(() => {
-    fetchTasks();
-  }, [fetchTasks, task]);
+    dispatch(fetchTasks({}));
+  }, [dispatch]);
 
   const handleChange = (
     event: ChangeEvent<
@@ -51,6 +49,7 @@ const TaskForm = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    console.log("Creating task:", task);
     TaskCreator(task)
       .then((data) => console.log(data))
       .catch((error) => console.error("Error:", error));
