@@ -10,7 +10,7 @@ import { UsersService } from './users.service';
 import { JwtService } from '@nestjs/jwt';
 import { LoginUserDto } from './Dtos/login-user.dto';
 import * as bcrypt from 'bcrypt';
-import { Builder, By, Key, until } from 'selenium-webdriver';
+import { Builder, By } from 'selenium-webdriver';
 import { Options } from 'selenium-webdriver/chrome';
 
 @Controller('users')
@@ -101,7 +101,7 @@ export class UserController {
 
       const userBody = await driver.findElement(
         By.xpath(
-          "//div[contains(@class, 'text-body-medtium') and contains(@class, 'breatk-words')]",
+          "//div[contains(@class, 'text-body-medium') and contains(@class, 'break-words')]",
         ),
       );
 
@@ -117,8 +117,8 @@ export class UserController {
       const names = fullName.split(' - ')[0].split(' ');
       const firstTwoNames = names.slice(0, 2).join(' ');
 
-      // console.log(userImageSrc);
-      // console.log(firstTwoNames);
+      console.log(userImageSrc);
+      console.log(firstTwoNames);
 
       if (!firstTwoNames) {
         throw new BadRequestException('Could not determine username');
@@ -147,6 +147,7 @@ export class UserController {
         access_token: this.jwtService.sign(payload),
       };
     } catch (error) {
+      console.log(error);
       // await this.performGmailLogin(driver);
     }
   }
