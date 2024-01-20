@@ -74,6 +74,23 @@ export const deleteTask = createAsyncThunk(
   }
 );
 
+export const editTask = createAsyncThunk(
+  "tasks/editTask",
+  async (task: Task, thunkAPI) => {
+    try {
+      await axios.patch(`http://localhost:5000/tasks/${task.taskId}`, {
+        title: task.title,
+        description: task.description,
+        dueDate: task.dueDate,
+        category: task.category,
+      });
+      return task;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error });
+    }
+  }
+);
+
 export const tasksSlice = createSlice({
   name: "tasks",
   initialState,
@@ -97,6 +114,12 @@ export const tasksSlice = createSlice({
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter(
           (task) => task.taskId !== action.payload._id
+        );
+      })
+      .addCase(editTask.fulfilled, (state, action) => {
+        const updatedTask = action.payload;
+        state.tasks = state.tasks.map((task) =>
+          task.taskId === updatedTask.taskId ? updatedTask : task
         );
       });
   },
