@@ -37,27 +37,23 @@ This task management app is designed to help users organize and manage their tas
    - Feature to scrape the user’s data from LinkedIn and display it in a profile section (e.g., name, LinkedIn URL, photo, etc.).
    - Implemented using Selenium Webdriver with Nest.js.
 
-7. **Animated UI:**
-
-   - Enhance user experience with animations using Tailwind Animate and Shadcn.
-
-8. **Type Safety:**
+7. **Type Safety:**
 
    - Utilizes TypeScript and Zod for strict type checking.
 
-9. **Icons:**
+8. **Icons:**
 
    - Integration of React Icons for a visually appealing UI.
 
-10. **Routing:**
+9. **Routing:**
 
-    - Navigation between pages using React Router DOM.
+   - Navigation between pages using React Router DOM.
 
-11. **CSS Styling:**
+10. **CSS Styling:**
 
     - Styled with Tailwind CSS for a clean and maintainable styling approach.
 
-12. **State Management:**
+11. **State Management:**
     - Redux and Redux Toolkit for efficient state management.
 
 ## Prerequisites
