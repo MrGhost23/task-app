@@ -92,7 +92,7 @@ const Tasks = () => {
           </div>
         </div>
         <hr className="my-4" />
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-4 gap-2">
           <input
             type="text"
             placeholder="Search for tasks"
@@ -100,6 +100,23 @@ const Tasks = () => {
             onChange={handleSearchChange}
             className="border-b border-gray-300 rounded-md p-2 outline-none focus:border-sky-500 flex-grow mr-4"
           />
+          <select className="border border-gray-300 rounded-md p-2 outline-none">
+            <option value="all" className="py-1">
+              All
+            </option>
+            <option value="personal" className="py-1">
+              Personal
+            </option>
+            <option value="work" className="py-1">
+              Work
+            </option>
+            <option value="shopping" className="py-1">
+              Shopping
+            </option>
+            <option value="others" className="py-1">
+              Others
+            </option>
+          </select>
           <button className="bg-sky-500 text-white text-md gap-1 rounded-md font-medium p-2 flex items-center">
             <IoIosSearch />
             Search
