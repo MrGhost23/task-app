@@ -81,4 +81,23 @@ yarn install
 
 ## Prerequisites
 
-1. Start the backend server (nest.js)
+1. Start the backend server (Nest.js)
+
+```bash
+npm run start:server
+# or
+yarn start:server
+```
+
+2. Start the backend server (Nest.js)
+
+```bash
+npm run dev
+# or
+yarn run dev
+
+```
+
+3. Open your browser and navigate to http://localhost:3000.
+
+# Folder Structure
