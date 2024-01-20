@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser, setUser } from "./store/slices/userAuthSlice";
 import axios from "axios";
 import Tasks from "./pages/Tasks";
+import Profile from "./pages/Profile";
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -56,6 +57,7 @@ const App: React.FC = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={user ? <Tasks /> : <Login />} />
+        <Route path="/profile" element={user ? <Profile /> : <Login />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route
           path="/signup"
