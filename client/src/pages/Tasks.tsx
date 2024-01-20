@@ -136,7 +136,7 @@ const Tasks = () => {
           </div>
         </div>
         <hr className="my-4" />
-        <div className="flex justify-between items-center mb-4 gap-2">
+        <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
           <input
             type="text"
             placeholder="Search for tasks"
