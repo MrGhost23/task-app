@@ -144,6 +144,18 @@ const Tasks = () => {
             onChange={handleSearchChange}
             className="border-b border-gray-300 rounded-md p-2 outline-none focus:border-sky-500 flex-grow mr-4"
           />
+
+          <button
+            className="bg-sky-500 text-white text-md gap-1 rounded-md font-medium p-2 flex items-center"
+            onClick={() =>
+              setFilter({
+                title: searchQuery.length > 0 ? searchQuery : undefined,
+              })
+            }
+          >
+            <IoIosSearch />
+            Search
+          </button>
           <select
             onChange={handleCategoryChange}
             className="border border-gray-300 rounded-md p-2 outline-none"
@@ -164,17 +176,6 @@ const Tasks = () => {
               Others
             </option>
           </select>
-          <button
-            className="bg-sky-500 text-white text-md gap-1 rounded-md font-medium p-2 flex items-center"
-            onClick={() =>
-              setFilter({
-                title: searchQuery.length > 0 ? searchQuery : undefined,
-              })
-            }
-          >
-            <IoIosSearch />
-            Search
-          </button>
         </div>
         {error && <p className="text-red-500">{error}</p>}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 pb-8">
