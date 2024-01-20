@@ -40,15 +40,18 @@ const Signup: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, Action> = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const onSubmit = async (values: RegisterPayload) => {
     setIsLoading(true);
-    await dispatch(
+    const dispatchAction = await dispatch(
       register({
         username: values.username,
         password: values.password,
       })
     );
+
+    setError(dispatchAction.payload || "");
     setIsLoading(false);
   };
 
@@ -72,6 +75,7 @@ const Signup: React.FC = () => {
                     <Input
                       placeholder="LinkedIn Username"
                       className="text-lg"
+                      autoComplete="off"
                       {...field}
                     />
                   </FormControl>
@@ -90,6 +94,8 @@ const Signup: React.FC = () => {
                     <Input
                       placeholder="********"
                       className="text-lg"
+                      autoComplete="off"
+                      type="password"
                       {...field}
                     />
                   </FormControl>
@@ -97,6 +103,8 @@ const Signup: React.FC = () => {
                 </FormItem>
               )}
             />
+            {error && <p className="text-red-500">{error}</p>}
+
             <Button
               type="submit"
               disabled={isLoading}

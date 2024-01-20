@@ -37,15 +37,18 @@ const Login: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, Action> = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
-    await dispatch(
+    const dispatchAction = await dispatch(
       login({
         username: values.username,
         password: values.password,
       })
     );
+
+    setError(dispatchAction.payload || "");
     setIsLoading(false);
   };
 
@@ -67,7 +70,8 @@ const Login: React.FC = () => {
                   <FormControl>
                     <Input
                       placeholder="LinkedIn Username"
-                      className="text-lg"
+                      className="text-lg focus:ring-sky-500 focus:border-none focus:outline-none"
+                      autoComplete="off"
                       {...field}
                     />
                   </FormControl>
@@ -85,7 +89,9 @@ const Login: React.FC = () => {
                   <FormControl>
                     <Input
                       placeholder="********"
-                      className="text-lg"
+                      autoComplete="off"
+                      type="password"
+                      className="text-lg focus:ring-sky-500 focus:border-none focus:outline-none"
                       {...field}
                     />
                   </FormControl>
@@ -93,6 +99,8 @@ const Login: React.FC = () => {
                 </FormItem>
               )}
             />
+            {error && <p className="text-red-500">{error}</p>}
+
             <Button
               type="submit"
               disabled={isLoading}
