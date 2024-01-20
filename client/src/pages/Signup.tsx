@@ -55,6 +55,8 @@ const Signup: React.FC = () => {
   return (
     <div className="w-full flex justify-center items-center h-screen">
       <div className="w-96">
+        <h1 className="text-4xl font-bold mb-4 flex justify-center">Sign Up</h1>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -65,7 +67,7 @@ const Signup: React.FC = () => {
                   <FormLabel className="text-lg">Username</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="LinkedIn username"
+                      placeholder="LinkedIn Username"
                       className="text-lg"
                       {...field}
                     />
