@@ -75,7 +75,14 @@ export class TasksService {
     filter: FilterQuery<TaskDocument>,
     userId: string,
   ): Promise<TaskDocument[]> {
-    const tasks = await this.taskModel.find({ ...filter, createdBy: userId });
+    const { title, ...otherFilters } = filter;
+    const tasks = await this.taskModel.find({
+      ...otherFilters,
+      createdBy: userId,
+      ...(title && {
+        title: { $regex: new RegExp(title, 'i') },
+      }),
+    });
     return tasks;
   }
 }
