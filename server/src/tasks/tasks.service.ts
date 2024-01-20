@@ -27,6 +27,7 @@ export class TasksService {
 
   async getAllTasksByUser(userId: string) {
     const tasks = await this.taskModel.find({ createdBy: userId }).exec();
+    console.log('this is tasks', tasks);
     return tasks;
   }
 
@@ -60,7 +61,7 @@ export class TasksService {
     taskId: string,
     isCompleted: boolean,
   ): Promise<UpdateWriteOpResult> {
-    const updatedTask = await this.taskModel.updateOne(
+    const updatedTask = await this.taskModel.findByIdAndUpdate(
       { _id: taskId },
       {
         $set: {
@@ -76,13 +77,16 @@ export class TasksService {
     userId: string,
   ): Promise<TaskDocument[]> {
     const { title, ...otherFilters } = filter;
-    const tasks = await this.taskModel.find({
-      ...otherFilters,
-      createdBy: userId,
-      ...(title && {
-        title: { $regex: new RegExp(title, 'i') },
-      }),
-    });
+    const tasks = await this.taskModel
+      .find({
+        ...otherFilters,
+        createdBy: userId,
+        ...(title && {
+          title: { $regex: new RegExp(title, 'i') },
+        }),
+      })
+      .sort({ createdAt: -1 })
+      .exec();
     return tasks;
   }
 }
