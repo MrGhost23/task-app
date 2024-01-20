@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           {user ? (
-            <>
+            <div className="flex">
               <span className="hidden lg:block mr-4 font-medium">
                 Hello, {user.fullName}
               </span>
@@ -71,9 +71,9 @@ const Navbar: React.FC = () => {
                   </Menu.Item>
                 </Menu.Items>
               </Menu>
-            </>
+            </div>
           ) : (
-            <div className="space-x-2">
+            <div className="space-x-2 flex">
               <Link to="/login">
                 <Button variant={"outline"}>Login</Button>
               </Link>

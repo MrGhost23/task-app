@@ -58,7 +58,10 @@ const Signup: React.FC = () => {
         <h1 className="text-4xl font-bold mb-4 flex justify-center">Sign Up</h1>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-8 px-8 lg:px-0"
+          >
             <FormField
               control={form.control}
               name="username"
@@ -94,7 +97,7 @@ const Signup: React.FC = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isLoading}>
+            <Button type="submit" disabled={isLoading} className="block w-full">
               {isLoading ? "Loading..." : "Sign Up"}
             </Button>
           </form>
