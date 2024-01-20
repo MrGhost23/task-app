@@ -97,7 +97,11 @@ const Signup: React.FC = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isLoading} className="block w-full">
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="block w-full bg-sky-500"
+            >
               {isLoading ? "Loading..." : "Sign Up"}
             </Button>
           </form>

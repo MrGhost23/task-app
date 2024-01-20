@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           {user ? (
-            <div className="flex">
+            <div className="flex items-center">
               <span className="hidden lg:block mr-4 font-medium">
                 Hello, {user.fullName}
               </span>
@@ -78,7 +78,7 @@ const Navbar: React.FC = () => {
                 <Button variant={"outline"}>Login</Button>
               </Link>
               <Link to="/signup">
-                <Button>Sign Up</Button>
+                <Button className="bg-sky-500">Sign Up</Button>
               </Link>
             </div>
           )}
