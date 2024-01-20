@@ -60,6 +60,20 @@ export const createTask = createAsyncThunk(
   }
 );
 
+export const deleteTask = createAsyncThunk(
+  "tasks/deleteTask",
+  async (taskId: Key, thunkAPI) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/tasks/${taskId}`
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error });
+    }
+  }
+);
+
 export const tasksSlice = createSlice({
   name: "tasks",
   initialState,
@@ -79,6 +93,11 @@ export const tasksSlice = createSlice({
       })
       .addCase(createTask.fulfilled, (state, action: PayloadAction<Task>) => {
         state.tasks.push(action.payload);
+      })
+      .addCase(deleteTask.fulfilled, (state, action) => {
+        state.tasks = state.tasks.filter(
+          (task) => task.taskId !== action.payload._id
+        );
       });
   },
 });
