@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -40,14 +39,19 @@ const Signup: React.FC = () => {
 
   const dispatch: ThunkDispatch<RootState, void, Action> = useDispatch();
 
-  function onSubmit(values: RegisterPayload) {
-    dispatch(
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit = async (values: RegisterPayload) => {
+    setIsLoading(true);
+    await dispatch(
       register({
         username: values.username,
         password: values.password,
       })
     );
-  }
+    setIsLoading(false);
+  };
+
   return (
     <div className="w-full flex justify-center items-center h-screen">
       <div className="w-96">
@@ -61,7 +65,7 @@ const Signup: React.FC = () => {
                   <FormLabel className="text-lg">Username</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="omarmohamed23"
+                      placeholder="LinkedIn username"
                       className="text-lg"
                       {...field}
                     />
@@ -88,7 +92,9 @@ const Signup: React.FC = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit">Login</Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? "Loading..." : "Sign Up"}
+            </Button>
           </form>
         </Form>
       </div>
