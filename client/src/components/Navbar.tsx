@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
                   <img
                     className="w-12 h-12 rounded-full cursor-pointer"
                     src={user.image}
-                    alt={`${user.username} profile picture`}
+                    alt={user.fullName}
                   />
                 </Menu.Button>
                 <Menu.Items className="absolute top-14 right-8 w-40 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
