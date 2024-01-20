@@ -6,13 +6,21 @@ import logo from "../assets/tasks.png";
 import { Button } from "./ui/button";
 import { Menu } from "@headlessui/react";
 import { useAppDispatch } from "@/utils/hooks";
+import userImage from "@/assets/user.png";
 
 const Navbar: React.FC = () => {
   const user = useSelector(selectUser);
   const dispatch = useAppDispatch();
 
+  const handleImageError = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src = userImage;
+  };
+
   return (
-    <nav className="bg-white px-4 border-gray-200 dark:bg-gray-900">
+    <nav className="fixed top-0 z-50 w-full bg-white px-4 border-gray-200 dark:bg-gray-900">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           to="/"
@@ -33,6 +41,7 @@ const Navbar: React.FC = () => {
                     className="w-12 h-12 rounded-full cursor-pointer"
                     src={user.image}
                     alt={user.fullName}
+                    onError={handleImageError}
                   />
                 </Menu.Button>
                 <Menu.Items className="absolute top-14 right-8 w-40 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
