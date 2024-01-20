@@ -27,8 +27,8 @@ const TasksPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
-    <div className="w-full px-8 grid grid-cols-1 lg:grid-cols-3 lg:gap-10">
-      <div className="hidden lg:block">
+    <div className="mt-24 w-full px-8 grid grid-cols-1 lg:grid-cols-3 lg:gap-10">
+      <div className="hidden lg:block h-fit sticky top-[6.2rem]">
         <TaskForm />
       </div>
       <Button
