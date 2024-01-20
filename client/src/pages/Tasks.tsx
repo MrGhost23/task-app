@@ -10,16 +10,23 @@ import Modal from "react-modal";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks";
 import { fetchTasks } from "@/store/slices/tasksSlice";
 
+interface Filter {
+  isCompleted?: boolean;
+  category?: string;
+  title?: string;
+}
+
 const Tasks = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [filter, setFilter] = useState<Filter>({});
   const dispatch = useAppDispatch();
 
   const { tasks, loading, error } = useAppSelector((state) => state.tasks);
 
   useEffect(() => {
-    dispatch(fetchTasks());
-  }, [dispatch]);
+    dispatch(fetchTasks(filter));
+  }, [dispatch, filter]);
 
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-device-width: 1224px)",
@@ -36,6 +43,17 @@ const Tasks = () => {
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
+  };
+
+  const handleCategoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const category = event.target.value;
+    if (category === "all") {
+      setFilter({});
+    } else {
+      setFilter({ category });
+    }
   };
 
   const handleEdit = (taskId: string) => {
@@ -85,10 +103,36 @@ const Tasks = () => {
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold">Tasks</h1>
           <div className="flex items-center">
-            <span className="mr-4 text-sky-500 font-bold border-b-2 border-b-sky-200">
-              UnCompleted
+            <span
+              onClick={() => setFilter({})}
+              className={`mr-4 font-bold border-b-2 ${
+                filter.isCompleted === undefined
+                  ? "border-b-sky-200 text-sky-500"
+                  : ""
+              }`}
+            >
+              All
             </span>
-            <span>Completed</span>
+            <span
+              onClick={() => setFilter({ isCompleted: false })}
+              className={`mr-4 font-bold border-b-2 ${
+                filter.isCompleted === false
+                  ? "border-b-sky-200 text-sky-500"
+                  : ""
+              }`}
+            >
+              Uncompleted
+            </span>
+            <span
+              onClick={() => setFilter({ isCompleted: true })}
+              className={`font-bold border-b-2 ${
+                filter.isCompleted === true
+                  ? "text-sky-500 font-bold border-b-2 border-b-sky-200"
+                  : ""
+              }`}
+            >
+              Completed
+            </span>
           </div>
         </div>
         <hr className="my-4" />
@@ -100,7 +144,10 @@ const Tasks = () => {
             onChange={handleSearchChange}
             className="border-b border-gray-300 rounded-md p-2 outline-none focus:border-sky-500 flex-grow mr-4"
           />
-          <select className="border border-gray-300 rounded-md p-2 outline-none">
+          <select
+            onChange={handleCategoryChange}
+            className="border border-gray-300 rounded-md p-2 outline-none"
+          >
             <option value="all" className="py-1">
               All
             </option>
@@ -117,7 +164,14 @@ const Tasks = () => {
               Others
             </option>
           </select>
-          <button className="bg-sky-500 text-white text-md gap-1 rounded-md font-medium p-2 flex items-center">
+          <button
+            className="bg-sky-500 text-white text-md gap-1 rounded-md font-medium p-2 flex items-center"
+            onClick={() =>
+              setFilter({
+                title: searchQuery.length > 0 ? searchQuery : undefined,
+              })
+            }
+          >
             <IoIosSearch />
             Search
           </button>
@@ -129,6 +183,10 @@ const Tasks = () => {
               <Loading />
               <Loading />
             </>
+          ) : tasks.length === 0 ? (
+            <p className="text-gray-800 font-medium">
+              There's No Tasks To Show!
+            </p>
           ) : (
             tasks.map((task) => {
               return <Task key={task.taskId} task={task} />;
