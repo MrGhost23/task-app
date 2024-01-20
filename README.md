@@ -74,4 +74,11 @@ Make sure you have the following installed on your machine:
 ```bash
 git clone https://github.com/your-username/task-management-app.git
 cd task-management-app
+npm install
+# or
+yarn install
 ```
+
+## Prerequisites
+
+1. Start the backend server (nest.js)
