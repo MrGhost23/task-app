@@ -5,7 +5,7 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { MdOutlineDateRange } from "react-icons/md";
 import { Button } from "../ui/button";
 import { useAppDispatch } from "@/utils/hooks";
-import { deleteTask } from "@/store/slices/tasksSlice";
+import { deleteTask, toggleTaskCompletion } from "@/store/slices/tasksSlice";
 import TaskForm from "@/components/TaskForm/TaskForm";
 import Modal from "@/components/ui/Modal";
 import { useState } from "react";
@@ -26,6 +26,12 @@ const Task: React.FC<Props> = ({ task }) => {
 
   const toggleCompleted = () => {
     setTaskIsCompleted((prevState) => !prevState);
+    dispatch(
+      toggleTaskCompletion({
+        taskId: String(task.taskId),
+        isCompleted: !taskIsCompleted!,
+      })
+    );
   };
 
   return (
