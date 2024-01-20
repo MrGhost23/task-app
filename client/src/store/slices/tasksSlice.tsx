@@ -109,7 +109,7 @@ export const tasksSlice = createSlice({
         state.error = action.error.message ?? null;
       })
       .addCase(createTask.fulfilled, (state, action: PayloadAction<Task>) => {
-        state.tasks.push(action.payload);
+        state.tasks = [action.payload, ...state.tasks];
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter(
