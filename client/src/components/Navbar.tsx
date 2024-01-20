@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-white px-4 border-gray-200 dark:bg-gray-900">
+    <nav className="fixed top-0 z-50 w-full bg-white px-4 border-gray-200">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           to="/"
