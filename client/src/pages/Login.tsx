@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { useDispatch } from "react-redux";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
-import { login, register } from "@/store/slices/userAuthSlice";
+import { login } from "@/store/slices/userAuthSlice";
 import { useState } from "react";
 
 const formSchema = z.object({
