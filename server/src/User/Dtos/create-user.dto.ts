@@ -3,4 +3,5 @@ export class CreateUserDto {
   readonly password: string;
   readonly image?: string;
   readonly fullName: string;
+  readonly bio?: string;
 }
