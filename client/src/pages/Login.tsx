@@ -17,7 +17,8 @@ import { Input } from "@/components/ui/input";
 import { useDispatch } from "react-redux";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
-import { login } from "@/store/slices/userAuthSlice";
+import { login, register } from "@/store/slices/userAuthSlice";
+import { useState } from "react";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -35,14 +36,19 @@ const Login: React.FC = () => {
 
   const dispatch: ThunkDispatch<RootState, void, Action> = useDispatch();
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
+    await dispatch(
       login({
         username: values.username,
         password: values.password,
       })
     );
-  }
+    setIsLoading(false);
+  };
+
   return (
     <div className="w-full flex justify-center items-center h-screen">
       <div className="w-96">
@@ -56,7 +62,7 @@ const Login: React.FC = () => {
                   <FormLabel className="text-lg">Username</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="omarmohamed23"
+                      placeholder="LinkedIn username"
                       className="text-lg"
                       {...field}
                     />
@@ -83,7 +89,9 @@ const Login: React.FC = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit">Login</Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? "Loading..." : "Log In"}
+            </Button>
           </form>
         </Form>
       </div>
