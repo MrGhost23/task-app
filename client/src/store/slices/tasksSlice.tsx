@@ -105,7 +105,9 @@ export const toggleTaskCompletion = createAsyncThunk(
       console.log(response);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue({ error: error.message });
+      return thunkAPI.rejectWithValue({ error: (error as Error).message } as {
+        error: string;
+      });
     }
   }
 );
