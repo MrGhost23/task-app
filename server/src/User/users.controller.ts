@@ -117,8 +117,6 @@ export class UserController {
       const names = fullName.split(' - ')[0].split(' ');
       const firstTwoNames = names.slice(0, 2).join(' ');
 
-      console.log(userImageSrc);
-      console.log(firstTwoNames);
 
       if (!firstTwoNames) {
         throw new BadRequestException('Could not determine username');

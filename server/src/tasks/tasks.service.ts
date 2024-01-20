@@ -27,7 +27,6 @@ export class TasksService {
 
   async getAllTasksByUser(userId: string) {
     const tasks = await this.taskModel.find({ createdBy: userId }).exec();
-    console.log('this is tasks', tasks);
     return tasks;
   }
 

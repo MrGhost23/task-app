@@ -42,7 +42,6 @@ export const fetchTasks = createAsyncThunk(
         },
       }
     );
-    console.log(response.data);
     return response.data;
   }
 );
@@ -102,7 +101,6 @@ export const toggleTaskCompletion = createAsyncThunk(
         `http://localhost:5000/tasks/${taskId}/completed`,
         { isCompleted }
       );
-      console.log(response);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: (error as Error).message } as {
