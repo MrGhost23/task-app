@@ -52,7 +52,7 @@ export class TasksService {
   }
 
   async deleteTask(taskId: string) {
-    const deletedTask = await this.taskModel.deleteOne({ _id: taskId });
+    const deletedTask = await this.taskModel.findByIdAndDelete(taskId);
     return deletedTask;
   }
 
