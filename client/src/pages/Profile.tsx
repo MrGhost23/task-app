@@ -1,14 +1,17 @@
 import { selectUser } from "@/store/slices/userAuthSlice";
 import { useSelector } from "react-redux";
 import { FaLinkedin } from "react-icons/fa";
-import userimage from "../assets/user.png";
+import userImage from "../assets/user.png";
 
 const Profile = () => {
   const user = useSelector(selectUser);
-  console.log(user);
-  const handleImageError = (event) => {
-    event.target.src = userimage;
+  const handleImageError = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src = userImage;
   };
+
   return (
     <div className="flex justify-center items-center">
       <div className="max-w-screen-md px-10 py-6 mx-4 mt-20 bg-white rounded-lg shadow md:mx-auto border-1">
