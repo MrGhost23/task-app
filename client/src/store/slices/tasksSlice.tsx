@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Key } from "react";
+import queryString from "query-string";
 
 interface Task {
   taskId: Key | null | undefined;
@@ -22,16 +23,29 @@ const initialState: TasksState = {
   error: null,
 };
 
-export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
-  const localToken = localStorage.getItem("token");
-  const response = await axios.get("http://localhost:5000/tasks/", {
-    headers: {
-      Authorization: `Bearer ${localToken}`,
-    },
-  });
-  console.log(response.data);
-  return response.data;
-});
+interface Filter {
+  isCompleted?: boolean;
+  title?: string;
+  category?: string;
+}
+
+export const fetchTasks = createAsyncThunk(
+  "tasks/fetchTasks",
+  async (filter: Filter) => {
+    const localToken = localStorage.getItem("token");
+    const filterParams = queryString.stringify(filter);
+    const response = await axios.get(
+      `http://localhost:5000/tasks?${filterParams}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localToken}`,
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  }
+);
 
 export const createTask = createAsyncThunk(
   "tasks/createTask",
