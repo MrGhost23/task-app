@@ -91,6 +91,25 @@ export const editTask = createAsyncThunk(
   }
 );
 
+export const toggleTaskCompletion = createAsyncThunk(
+  "tasks/toggleTaskCompletion",
+  async (
+    { taskId, isCompleted }: { taskId: string; isCompleted: boolean },
+    thunkAPI
+  ) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/tasks/${taskId}/completed`,
+        { isCompleted }
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
 export const tasksSlice = createSlice({
   name: "tasks",
   initialState,
@@ -121,7 +140,18 @@ export const tasksSlice = createSlice({
         state.tasks = state.tasks.map((task) =>
           task.taskId === updatedTask.taskId ? updatedTask : task
         );
-      });
+      })
+      .addCase(
+        toggleTaskCompletion.fulfilled,
+        (state, action: PayloadAction<Task>) => {
+          const index = state.tasks.findIndex(
+            (task) => task.taskId === action.payload.taskId
+          );
+          if (index !== -1) {
+            state.tasks[index] = action.payload;
+          }
+        }
+      );
   },
 });
 
